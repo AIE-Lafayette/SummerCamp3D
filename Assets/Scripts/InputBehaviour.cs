@@ -14,11 +14,21 @@ public class InputBehaviour : MonoBehaviour
 
     void Update()
     {
-        Vector3 moveDirection = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        if (Input.GetKeyDown(KeyCode.Escape))
+            Application.Quit();
+        
+        if (Input.anyKeyDown)
+            GameManagerBehaviour.StartTimerEnabled = true;
         
         if (Input.GetKeyDown(KeyCode.W))
             _moveBehaviour.Jump();
+
+        if (Input.GetKey(KeyCode.A))
+            _moveBehaviour.SetMoveDirection(Vector3.left);
+        else if (Input.GetKey(KeyCode.D))
+            _moveBehaviour.SetMoveDirection(Vector3.right);
+        else
+            _moveBehaviour.SetMoveDirection(Vector3.zero);
         
-        _moveBehaviour.SetMoveDirection(moveDirection);
     }
 }

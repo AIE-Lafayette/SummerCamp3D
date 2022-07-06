@@ -6,7 +6,7 @@ public class ObstacleCourseMovementBehaviour : MonoBehaviour
 {
     [SerializeField] private float _moveSpeed;
 
-    public bool CanMove = true;
+    public bool CanMove;
     
     // Update is called once per frame
     void Update()

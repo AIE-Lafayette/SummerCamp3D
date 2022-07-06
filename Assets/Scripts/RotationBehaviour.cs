@@ -9,6 +9,6 @@ public class RotationBehaviour : MonoBehaviour
 
     private void Update()
     {
-        transform.Rotate(Vector3.up * (RotationSpeed * Time.deltaTime));
+        transform.Rotate(Vector3.up * RotationSpeed * Time.deltaTime);
     }
 }

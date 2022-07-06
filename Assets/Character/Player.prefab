@@ -128,10 +128,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dae1e32f75e3fbc449f0aab1ac0a27e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CanMove: 0
   MoveSpeed: 8
+  Score: 0
+  Explosion: {fileID: 3112735921181239644, guid: b6cda5c921c464a4bb07e49dc5b7e138, type: 3}
   _jumpForce: 18
   _groundCollider: {fileID: 8140546815212707494}
   _airSpeedScale: 1.5
+  _xMin: -5
+  _xMax: 5
 --- !u!114 &1170145728318790495
 MonoBehaviour:
   m_ObjectHideFlags: 0

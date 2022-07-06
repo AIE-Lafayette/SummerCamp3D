@@ -2,16 +2,21 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 public class PlayerMoveBehaviour : MonoBehaviour
 {
-    private Rigidbody _rigidBody;
+    public bool CanMove;
     public float MoveSpeed;
     public int Score;
-    private Vector3 _moveDirection;
+    public GameObject Explosion;
+    private Rigidbody _rigidBody;
+    private Vector3 _velocity;
     [SerializeField] private float _jumpForce;
     [SerializeField] private GroundColliderBehaviour _groundCollider;
     [SerializeField] private float _airSpeedScale;
+    [SerializeField] private float _xMin;
+    [SerializeField] private float _xMax;
 
     private void Awake()
     {
@@ -26,7 +31,7 @@ public class PlayerMoveBehaviour : MonoBehaviour
 
     public void SetMoveDirection(Vector3 moveDirection)
     {
-        _moveDirection = new Vector3(moveDirection.x, 0, 0);
+        _velocity = moveDirection * (MoveSpeed * Time.fixedDeltaTime);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -36,15 +41,24 @@ public class PlayerMoveBehaviour : MonoBehaviour
             Destroy(other.gameObject);
             Score++;
         }
+        else if (other.CompareTag("Obstacle"))
+        {
+            gameObject.SetActive(false);
+            Instantiate(Explosion, transform.position, transform.rotation);
+        }
     }
 
     void FixedUpdate()
     {
+        if (!CanMove)
+            return;
+        
         if (!_groundCollider.IsGrounded)
-            _moveDirection /= _airSpeedScale;
+            _velocity /= _airSpeedScale;
         
-        transform.position += _moveDirection * (MoveSpeed * Time.fixedDeltaTime);
-        
-        Debug.Log(Score);
+        Vector3 newPosition = transform.position + _velocity;
+        newPosition.x = Mathf.Clamp(newPosition.x, _xMin, _xMax);
+
+        transform.position = newPosition;
     }
 }
