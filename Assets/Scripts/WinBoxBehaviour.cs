@@ -5,17 +5,18 @@ using UnityEngine;
 
 public class WinBoxBehaviour : MonoBehaviour
 {
-    [SerializeField] private bool _hasWon;
-    
-    public bool HasWon
-    {
-        get => _hasWon;
-        set => _hasWon = value;
-    }
+    /// <summary>
+    /// This value stores whether or not the player has won. 
+    /// It will be used to update UI, and stop player movement.
+    /// </summary>
+    public bool HasWon;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Player")) return;
-        _hasWon = true;
+        //If the winbox collided with the player they've won!
+        if (other.CompareTag("Player"))
+        {
+            HasWon = true;
+        }
     }
 }

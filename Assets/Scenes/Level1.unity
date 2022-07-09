@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 96066320}
   - component: {fileID: 96066323}
   m_Layer: 0
-  m_Name: Ground
+  m_Name: Floor
   m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -209,7 +209,7 @@ Transform:
   m_GameObject: {fileID: 96066318}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 55.668915, y: 37.753128, z: -3.2361984}
-  m_LocalScale: {x: 1, y: 1, z: 8.3137}
+  m_LocalScale: {x: 1, y: 1, z: 8}
   m_Children: []
   m_Father: {fileID: 1503302369}
   m_RootOrder: 0
@@ -451,6 +451,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3017466500380524658, guid: c8f2f2b9babbe3e4788b87cf2ff56732, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3510248042397340361, guid: c8f2f2b9babbe3e4788b87cf2ff56732, type: 3}
       propertyPath: Player
       value: 
@@ -812,6 +816,7 @@ GameObject:
   - component: {fileID: 963194228}
   - component: {fileID: 963194227}
   - component: {fileID: 963194226}
+  - component: {fileID: 963194229}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -878,12 +883,25 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.032653734, y: -0, z: -0, w: 0.9994667}
-  m_LocalPosition: {x: -0.09, y: 2.18, z: -4.76}
+  m_LocalPosition: {x: -0.09, y: 2.5, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 3.743, y: 0, z: 0}
+--- !u!114 &963194229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963194225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 201d51b121c1dd042b400af36187d7ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player: {fileID: 1170145728737809279}
 --- !u!114 &976246837 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8148062878388910270, guid: c8f2f2b9babbe3e4788b87cf2ff56732, type: 3}
@@ -1070,7 +1088,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1503302369}
-  - component: {fileID: 1503302368}
   m_Layer: 0
   m_Name: ObstacleCourse
   m_TagString: Untagged
@@ -1078,20 +1095,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1503302368
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1503302367}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 50ae3292b1f19434c937870a584e6d16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _moveSpeed: 25
-  CanMove: 0
 --- !u!4 &1503302369
 Transform:
   m_ObjectHideFlags: 0
@@ -1635,8 +1638,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1170145728318790494, guid: 2b55a97f5b99db24a9a02f13a5990c81, type: 3}
-      propertyPath: _jumpForce
+      propertyPath: CanMove
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1170145728318790494, guid: 2b55a97f5b99db24a9a02f13a5990c81, type: 3}
+      propertyPath: JumpForce
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1170145728318790494, guid: 2b55a97f5b99db24a9a02f13a5990c81, type: 3}
+      propertyPath: AirSpeedScale
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1170145728318790497, guid: 2b55a97f5b99db24a9a02f13a5990c81, type: 3}
       propertyPath: m_RootOrder
@@ -1686,8 +1697,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1584015526965016581, guid: 2b55a97f5b99db24a9a02f13a5990c81, type: 3}
+      propertyPath: m_Time
+      value: 0.15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b55a97f5b99db24a9a02f13a5990c81, type: 3}
+--- !u!4 &1170145728737809279 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1170145728318790497, guid: 2b55a97f5b99db24a9a02f13a5990c81, type: 3}
+  m_PrefabInstance: {fileID: 1170145728737809278}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4838184756013710240
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1851,6 +1871,6 @@ PrefabInstance:
     - target: {fileID: 5060324327005510803, guid: 48be4a45fecd7954ebaf415e45d5f7ec, type: 3}
       propertyPath: CourseMovementBehaviour
       value: 
-      objectReference: {fileID: 1503302368}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48be4a45fecd7954ebaf415e45d5f7ec, type: 3}

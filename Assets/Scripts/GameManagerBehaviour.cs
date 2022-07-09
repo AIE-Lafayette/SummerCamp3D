@@ -8,75 +8,34 @@ using UnityEngine.UI;
 
 public class GameManagerBehaviour : MonoBehaviour
 {
-    public static int CurrentLevel;
-    public static bool StartTimerEnabled;
-    public static int MaxLevel = 2;
+    /// <summary>
+    /// A reference to our UI manager to make the win and lose screens appear.
+    /// </summary>
     public UIManagerBehaviour UIManager;
+    /// <summary>
+    /// Stores a reference to the one and only win box in the scene.
+    /// </summary>
     public WinBoxBehaviour WinBox;
+    /// <summary>
+    /// Stores a reference to the player so we can stop their movement when they win.
+    /// </summary>
     public PlayerMoveBehaviour Player;
-    public ObstacleCourseMovementBehaviour CourseMovementBehaviour;
-    public float StartTimer;
-    public float DeathLoadTime;
-    public float LevelLoadTime;
-    public bool GameStarted;
-    public bool GameOver;
-
-    private void Awake()
-    {
-        StartTimerEnabled = false;
-        GameStarted = false;
-    }
-
-    public IEnumerator LoadLevel(int levelIndex, float time)
-    {
-        yield return new WaitForSeconds(time);
-        SceneManager.LoadScene(levelIndex);
-    }
     
     // Update is called once per frame
     void Update()
     {
-        if (StartTimerEnabled == true && GameStarted == false)
+        //If the player won display the win screen.
+        if (WinBox.HasWon)
         {
-            UIManager.StartInstructionsTextBox.gameObject.SetActive(false);
-            UIManager.CountDownTextBox.gameObject.SetActive(true);
-            StartTimer -= Time.deltaTime;
-            UIManager.CountDownTextBox.text = Mathf.CeilToInt(StartTimer).ToString();
-            
-            if (StartTimer <= 0)
-            {
-                StartTimerEnabled = false;
-                GameStarted = true;
-                CourseMovementBehaviour.CanMove = true;
-                Player.CanMove = true;
-                UIManager.CountDownTextBox.gameObject.SetActive(false);
-            }
-
-            return;
+           UIManager.FadeInLevelCompleteScreen();
+            Player.CanMove = false;
         }
-
-        if (WinBox.HasWon && GameOver == false)
-        {
-            CurrentLevel++;
-            GameOver = true;
-
-            if (CurrentLevel < MaxLevel)
-            {
-                StartCoroutine(LoadLevel(CurrentLevel, LevelLoadTime));
-                UIManager.FadeInLevelCompleteScreen();
-            }
-            else
-                UIManager.FadeInEndScreen();
-        }
-        else if (!Player.gameObject.activeSelf && GameOver == false)
+        //If the player lost display the lose screen.
+        else if (!Player.gameObject.activeSelf)
         {
             UIManager.FadeInLevelFailScreen();
-            StartCoroutine(LoadLevel(CurrentLevel, DeathLoadTime));
-            GameOver = true;
+            Player.CanMove = false;
         }
-        else return;
-        
-        CourseMovementBehaviour.CanMove = false;
 
     }
 }
