@@ -285,4 +285,62 @@ Attach the "UIManagerBehaviour" script to the "UIManager" game object in the sce
 
 ![UI11](Images/UI11.gif)
 
-Now that our base game is complete, try to create your own levels! Add different challenges and obstacles like gaps to jump over, rotating obstacles, or harder to reach collectibles. 
+Our players don't really get much of a chance to prep themselves before our game begins. We can fix this by adding a countdown, and only starting when the player presses a key. For starters, lets create a new textbox under our canvas called "StartInstructions". This will just let our player know that they can press any key to start the countdown. We're going to want to format this so that it is the same as our win and loss textboxes. Be sure to set the width and height of the transform to the same values, set the anchor and the position to the center of the screen, and change the paragraph alignment to be centered. For the text itself, change it to "Press Any Key To Begin". Duplicate the textbox we just created, and name this new textbox "CountdownText". You can remove all text from this textbox. Disable the "CountdownText" so that it is not visible at the start of the scene. 
+
+![UI12](Images/UI12.png)
+
+Now we'll have to change our scripts so that it only allows the player to move when the countdown is over. First we'll need to add two more variables to our "UIManagerBehaviour".
+
+![UI13](Images/UI13.png)
+
+Next, we'll need to add some logic to the "GameManagerBehaviour" so that it only allows movement after the countdown is up.
+
+![UI14](Images/UI14.png)
+
+And finally, we need to update our "InputBehaviour" so that our player can start the countdown by pressing any key. It would also be nice if our player could exit the game by pressing the "Esc" key, so we'll add that functionality here too.
+
+![UI15](Images/UI15.png)
+
+Back in Unity, click on the "GameManager" game object in the hierarchy and set the "Start Timer" in the inspector to be 3 seconds. Next, click on the "UIManager" in the hierarchy, and drag the "CountdownText" and "StartInstructionText" into their respective slots. Lastly, click on the player, and drag the "GameManager" game object in the hierarchy into the "Game Manager" slot. Now our player will be able to start the game when they're ready.
+
+![UI16](Images/UI16.gif)
+
+ # Level Management
+
+Next we'll make our game restart if the player dies. We'll need to add some code to our "GameManagerBehaviour" script. In this next code snippet I have collapsed some blocks of code to make viewing the new changes easier. You can collapse blocks of code by clicking the "-" to the left of the block.
+
+![LevelManagement1](Images/LevelManagement1.png)
+
+Back in Unity, click on the "GameManager" and change the "Death Load Time" value to something reasonable like 3. Now once the player dies the game will restart after 3 seconds.
+
+![LevelManagement2](Images/LevelManagement2.gif)
+
+If the lighting in the scene looks weird after the game resets, it's just because the lighting needs to be regenerated. To generate the lighting, navigate to "Window -> Rendering -> Lighting" to open the lighting settings. Then click the "Generate Lighting" button in the bottom left. 
+
+![LevelManagement3](Images/LevelManagement3.png)
+
+It would be nice if our player could exit the game at anytime. We can do this really easily by adding the following code to our "InputBehaviour" script:
+
+![LevelManagement4](Images/LevelManagement4.png)
+
+This won't work while we're in the Unity editor, but our player will be able to quit when the game is launched as an executable. 
+
+Before we move on to transitioning between levels, lets create our end game screen. This will be the screen we'll show once the player has beaten the last level. Simply duplicate the "WinText" game object and rename it to "EndText". Change the text inside of the textbox to say "Thanks For Playing. Press Esc To Quit". Afterwards, disable the game object just like we did with the win text. Now add the following code to the "UIManagerBehaviour".
+
+![LevelManagement5](Images/LevelManagement5.png)
+
+Now that our base game is complete, try to create your own levels! Start by duplicating your first scene by selecting the scene asset in the folder view, and pressing "Ctrl + d". Add different challenges and obstacles like gaps to jump over, rotating obstacles, or harder to reach collectibles. 
+
+Once you have completed all of your levels, we'll need to let Unity know that we want all of those levels in the final game. This may be a bit counter intuitive. If we're making a new scene, surely we want it to be in the final game right? It's very common for developers to create test levels that don't belong in the final game. These can be useful for testing out new feature or fixing bugs. Because of this, Unity requires us to tell it which scenes belong in the final game. We can do this by going to "File - Build Settings". 
+
+![LevelManagement6](Images/LevelManagement6.png)
+
+We can add levels to the build by simply drag and dropping the levels in the correct order at the rectangle at the top that says "Scenes In Build". After you have done that you can close the build settings. 
+
+Next we'll need to update our "GameManagerBehaviour" one last time to allow us to transition between levels:
+
+![LevelManagement7](Images/LevelManagement7.png)
+
+And with that our game is complete!
+
+![LevelManagement8](Images/LevelManagement8.gif)

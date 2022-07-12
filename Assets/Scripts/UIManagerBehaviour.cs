@@ -25,13 +25,22 @@ public class UIManagerBehaviour : MonoBehaviour
     /// This will control how fast our UI elements fade in and out.
     /// </summary>
     public float FadeInSpeed;
-
-    public Text CountDownTextBox;
-    public Text StartInstructionsTextBox;
     /// <summary>
     /// We can use this value to keep track of wether or not the UI has started fading in or out.
     /// </summary>
     private bool _fadeEnabled;
+    /// <summary>
+    /// This will display the amount of seconds the player has before the game starts.
+    /// </summary>
+    public Text CountDownTextBox;
+    /// <summary>
+    /// We'll need to store the start instructions textbox so we can easily turn it off when the timer is up.
+    /// </summary>
+    public Text StartInstructionsTextBox;
+    /// <summary>
+    /// A reference to the win textbox will allow us to turn it on if our player beat the game.
+    /// </summary>
+    public Text EndTextBox;
 
 
 
@@ -69,8 +78,7 @@ public class UIManagerBehaviour : MonoBehaviour
         //We change the color of the background to fit our  screen better.
         BackgroundImage.color = Color.white;
         //The win text is enabled to let the player know they've won.
-        WinTextBox.gameObject.SetActive(true);
-        WinTextBox.text = "Thanks for Playing! \n Press Esc To Quit";
+        EndTextBox.gameObject.SetActive(true);
         _fadeEnabled = true;
     }
 

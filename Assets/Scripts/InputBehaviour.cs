@@ -10,6 +10,12 @@ public class InputBehaviour : MonoBehaviour
     /// </summary>
     private PlayerMoveBehaviour _moveBehaviour;
 
+    /// <summary>
+    /// This variable stores a reference to the game manager
+    /// so that we can tell when to start its timer.
+    /// </summary>
+    public GameManagerBehaviour GameManager;
+
     // Update is called once per frame
     private void Awake()
     {
@@ -19,9 +25,14 @@ public class InputBehaviour : MonoBehaviour
 
     void Update()
     {
+        //Quits the application when the game is player outside of the editor.
         if (Input.GetKeyDown(KeyCode.Escape))
             Application.Quit();
 
+        //Starts the countdown if the player presses any key.
+        if (Input.anyKeyDown)
+            GameManager.StartTimerEnabled = true;
+        
         //The player is told to jump if the W key is pressed.
         if (Input.GetKeyDown(KeyCode.W))
             _moveBehaviour.Jump();
