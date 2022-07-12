@@ -1719,6 +1719,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4838184755896239482, guid: e79bae9ed136a1541be003b99e51f8ac, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4838184755896239483, guid: e79bae9ed136a1541be003b99e51f8ac, type: 3}
       propertyPath: WinTextBox
       value: 
@@ -1803,6 +1807,10 @@ PrefabInstance:
     - target: {fileID: 5060324327005510800, guid: 48be4a45fecd7954ebaf415e45d5f7ec, type: 3}
       propertyPath: m_Name
       value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 5060324327005510800, guid: 48be4a45fecd7954ebaf415e45d5f7ec, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5060324327005510802, guid: 48be4a45fecd7954ebaf415e45d5f7ec, type: 3}
       propertyPath: m_RootOrder
