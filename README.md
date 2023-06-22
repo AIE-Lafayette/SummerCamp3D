@@ -1,5 +1,5 @@
 # Runner
-In this tutorial, we'll be creating a simple runner game using a sphere as a our characters. We'll also see how we can use some simple techniques to add some life to our game.
+In this tutorial, we'll be creating a simple runner game using a sphere as a our character. We'll also see how we can use some simple techniques to add some life to our game. This tutorial was made using Unity 2020.3.5.
 
 # Setting Up The Scene
 To start, create a platform for the player to walk on. To add a game object to the scene, either right-click or click the plus icon in the hierarchy window and select 3D object -> plane. Name this plane "Floor". Next we'll need to scale the floor so that our player has a bit more room to run. With the floor selected, the inspector window should show the object's components on the right. At the top of the component list there is the "Transform" component. Adjust the z axis to change the length of the level. You can set the length of the level to be whatever you like. I'm going to set the length for my level to 8. It's possible that the floor could spawn in a weird position due to the rotation and position of the camera in the scene view. Lets change the values of the position on all axis to be zero so that our level is at the center of our scene.
@@ -14,15 +14,15 @@ As you can see, our player is not in sight. This is because this tab shows us wh
 
 ![CameraSecondView](Images/CameraSecondView.png)
 
-Our camera is in the right position, but our player is still hard to see since our player and floor are the same color. We can add some color to the world by creating materials. In the project tab at the bottom, create a new folder called "Materials" by right clicking in the folder view and selecting Create -> Folder. Inside this folder, create a new material by right clicking again, but this time selecting "Create -> Material". Name the material "PlayerMat". If you select the material, you should see options for modifying the material on the right in the inspector. Click on the option labeled "Albedo" to adjust the color. I'm going to make the color of my player blue. Next, set the "Metallic" and "Smoothness" sliders to 0. This will make the player look less like plastic. 
+Our camera is in the right position, but our player is still hard to see since our player and floor are the same color. We can add some color to the world by creating materials. In the project tab at the bottom, create a new folder called "Materials" by right clicking in the folder view and selecting Create -> Folder. Inside this folder, create a new material by right clicking again, but this time selecting "Create -> Material". Name the material "PlayerMat". If you select the material, you should see options for modifying the material on the right in the inspector. Click on the option labeled "Albedo" to adjust the color. I'm going to make the color of my player blue. Next, set the "Metallic" and "Smoothness" sliders to 0. This will make the player look less shiny. 
 
 ![PlayerMatSettings](Images/PlayerMatSettings.png)
 
-To apply the material, simply drag the material on to the player in the scene. Repeat the same steps for the floor. 
+To apply the material, simply drag the material on to the player in the scene. Repeat the same steps for the floor. You can set the floor color to be whatever you like.  
 
 
 # Adding Player Movement
-Now that our playing field is set up, we can start adding some movement to our game. In the project tab at the bottom, create a new folder called "Scripts" by right clicking in the folder view and selecting "Create -> Folder". Inside this folder, create a new script by right clicking again, but this time selecting "Create -> C# Script". Name the script "PlayerMovementBehaviour". Modify the script so that it looks like this:
+Now that our playing field is set up, we can start adding some movement to our game. In the project tab at the bottom, create a new folder called "Scripts" by right clicking in the folder view and selecting "Create -> Folder". Inside this folder, create a new script by right clicking again, but this time selecting "Create -> C# Script". Name the script "PlayerMoveBehaviour". Modify the script so that it looks like this:
 
 ![PlayerMove1](Images/PlayerMove1.png)
 
@@ -46,25 +46,25 @@ Let's also create a new script to get movement from the player so that they can 
 
 ![Input1](Images/Input1.png)
 
-After attaching the script to the player, the player should be able move freely to either side. The only problem now is that the the player can move off the sides of the stage. We can fix this really easily by clamping the player's position. Modify the player movement script so that it looks like this:
+After attaching the script to the player, set the horizontal speed to 8. The player should now be able move freely to either side. The only problem now is that the the player can move off the sides of the stage. We can fix this really easily by clamping the player's position. Modify the player movement script so that it looks like this:
 
 ![PlayerMove3](Images/PlayerMove3.png)
 
 Set the x minimum to be -5, and the x maximum to 5. Now the player should not be able to move off of the side of the stage.
 
-Lastly, lets give our player the ability to jump. Jumping will allow us to make more interesting obstacles and terrain for our level. We'll be jumping by adding a force upwards to our player character, so we'll need to add a physics component. Select the player, and click the "Add Component" button at the bottom of the inspector. The component we'll want to add is the "Rigidbody" component. With this component we can give our game object mass, apply gravity, apply forces to push it around the scene, etc. To add the ability to jump, modify the movement and the input scripts so that they look like the following:
+Lastly, lets give our player the ability to jump. Jumping will allow us to make more interesting obstacles and terrain for our level. We'll be jumping by adding a force upwards to our player character, so we'll need to add a physics component. Select the player sphere in Unity, and click the "Add Component" button at the bottom of the inspector. The component we'll want to add is the "Rigidbody" component. With this component we can give our game object mass, apply gravity, apply forces to push it around the scene, etc. To add the ability to jump, modify the movement and the input scripts so that they look like the following:
 
 ![PlayerMove4](Images/PlayerMove4.png)
 
 ![Input2](Images/Input2.png)
 
-Set the jump force value for the player in Unity to be 15 and play the game. You should now be able to jump by pressing the 'W' key. The only problem now is that the player is able to jump infinitely in the air. This is because we didn't specify when the player is allowed to jump. We need to tweak our movement system to that the player can only jump if they are on the ground.  
+Set the jump force value for the player in Unity to be 8 and play the game. You should now be able to jump by pressing the 'W' key. The only problem now is that the player is able to jump infinitely in the air. This is because we didn't specify when the player is allowed to jump. We need to tweak our movement system to that the player can only jump if they are on the ground.  
 
-To start, double click on the player game object in the hierarchy tab to make the scene camera focus on it. Next we'll need to add a separate collider to the player that can check for floor collision. Right click on the player, select "3D Object -> Cube", and name the cube "GroundCollider". We need to change the position and scale of the cube so that it's just barely sticking out at the bottom of the sphere. If the cube isn't positioned correctly, our jumps can feel laggy and inconsistent. Set the scale on all axis to be 0.6 and Set the y position to be -0.2. 
+To start, double click on the player game object in the hierarchy tab to make the scene camera focus on it. Next we'll need to add a separate collider to the player that can check for floor collision. Right click on the player, select "3D Object -> Cube", and name the cube "GroundCollider". We need to change the position and scale of the cube so that it's just barely sticking out at the bottom of the sphere. If the cube isn't positioned correctly, our jumps can feel laggy and inconsistent. Set the scale on all axis to be 0.6 and set the y position to be -0.2. 
 
 ![GroundCollider1](Images/GroundCollider1.png)
 
-Underneath the transform component, there is a component called "Box Collider". As the name implies, this is the object that's responsible for collision. By default all objects have solid collision; meaning it doesn't allow objects to pass through it. This is going to be a bit of a problem for us here. If our ground collider has solid collision, it would make our player stand awkwardly on top of it, and cause weird collision issues in the future. Fortunately Unity gives us a way to register collisions while allowing objects to pass through. Click the "IsTrigger" check box on the component to enable this feature.
+Underneath the transform component, there is a component called "Box Collider". As the name implies, this is the object that's responsible for collision. By default all objects have solid collision; meaning it doesn't allow objects to pass through it. This is going to be a bit of a problem for us here. If our ground collider has solid collision, it would make our player stand awkwardly on top of it, and cause weird collision issues in the future. Fortunately Unity gives us a way to register collisions while allowing objects to pass through each other. Click the "IsTrigger" check box on the component to enable this feature.
 
 Although the visual could be useful for debugging, our player doesn't need to see the cube in game. We can make the cube invisible by clicking on the check box near the "MeshRenderer" component. 
 
@@ -86,7 +86,7 @@ Drag the ground collider into the "GroundCollider" slot, set the "AirSpeedScale"
 
 ## Bonus Polish(Optional)
 
-You can add a trail to our player character to make our movement look a bit cooler. To add a trail easily to objects in Unity, we just need to add a "TrailRenderer" component. Add this component to the player object. The first thing you'll want to do here is add the appropriate material. Click the materials dropdown and click on the plus icon. Click on the circle next to the new box to add a material. Search for the material "Default-Line" and select it.
+You can add a trail to our player character to make our movement look a bit cooler. To add a trail easily to objects in Unity, we just need to add a "TrailRenderer" component. Add this component to the player object. The first thing you'll want to do here is add the appropriate material. Click the materials dropdown and click on the plus icon if you don't see an element here already. Click on the circle next to the new box to add a material. Search for the material "Default-Line" and select it.
 
 At the top of the component should be a graph called "Width". This controls the width of the trail over time. For this, I think it would be nice if our trail started wide and narrowed as it progressed. To do this, we'll need to add another key. To add a key at the end, right click on the end of the width line and select add key.
 
@@ -138,13 +138,13 @@ We want the player to stop moving once they have won, so we'll need to modify th
 
 ![WinBox3](Images/WinBox3.png)
 
-Go back to Unity and right click in the hierarchy tab and select "CreateEmpty". Name this empty game object "GameManager". This will just be used to store logic for transitioning levels, updating UI and of course handling the win condition. Create a new script called "GameManagerBehaviour". 
+Go back to Unity and attach the win box script to the win box. Next, select the player and set its tag to be "Player". Afterwards, right click in the hierarchy tab and select "CreateEmpty". Name this empty game object "GameManager". This will just be used to store logic for transitioning levels, updating UI and of course handling the win condition. Create a new script called "GameManagerBehaviour". 
 
 ![WinBox4](Images/WinBox4.png)
 
-Attach the script to the game manager object in the scene view and drag the player and the win box in to their respective slots. If you play the game now the player should now stop when they reach the end of the level. Drag the win box and the game manager in the scene view into the environment folder to add them to our collection of prefabs.
+Attach the script to the game manager object in the scene view and drag the player and the win box in to their respective slots. Click on the player game object and check the can move check box so that it's true. This will allow our player to be able to move by default. If you play the game now the player should now stop when they reach the end of the level. Turn off the mesh renderer for the win box just like we did with the ground collider. Drag the win box and the game manager in the scene view into the environment folder to add them to our collection of prefabs. We made changes to our player in the game that won't be reflected in our player prefab. To update it, select the player game object and click the "Overrides" dropdown in the top right of the inspector and select "Apply All". You can repeat these steps for any other prefabbed object you make changes to in the scene.
 
-Lets add some collectibles that our player can grab while they run through the level. We'll make these collectibles slowly rotate to make them stand out a bit more. Create a new cube in the hierarchy and name it "Collectible". With the game object selected, set the rotation on the x to be 45, and the z to be 45. Lets also set the scale of the object to be 0.7 on all axis. We can also add some color to our collectible by giving it a material. I'm going to make the color of my material yellow. You can also click on the emission checkbox to make the collectible stand out a bit more. 
+Lets add some collectibles that our player can grab while they run through the level. We'll make these collectibles slowly rotate to make them stand out a bit more. Create a new cube in the hierarchy and name it "Collectible". With the game object selected, set the rotation on the x to be 45, and the z to be 45. Lets also set the scale of the object to be 0.7 on all axis. Just like with obstacles, we should check the "IsTrigger" check box in the collider component. We can also add some color to our collectible by giving it a material. I'm going to make the color of my material yellow. You can also click on the emission checkbox and modify the color and intensity to make the collectible glow and stand or more. 
 
 ![Collectible](Images/Collectible.png)
 
@@ -157,6 +157,8 @@ Back in Unity, attach the script to the collectible in the scene. Set the rotati
 Collectibles still don't have a function. Since we want them to be a fun bonus and not the players main goal, we can just create a simple counter that keeps track of the amount we collected. In the player move script, add the following code:
 
 ![Collectible2](Images/Collectible2.png)
+
+Populate your scene with collectibles. We won't be able to see the score go up yet but we should see them despawning.
 
 ## Bonus Polish(Optional)
 
@@ -187,10 +189,8 @@ We can also create a cool explosion effect that can play when our player dies. W
 
 - Start Size - 0.2
 
-- Start Color - Hex: 002193
-
 - Gravity Modifier - 5
-
+            
 - Play On Awake - Enabled
 
 - Stop Action - Destroy
@@ -217,8 +217,7 @@ We can also create a cool explosion effect that can play when our player dies. W
 ### Trails
 - Lifetime - 0.03
 - Minimum Vertex Distance - 0.2
-- Width Over Trail - Add new key at the end of the curve by right clicking and selecting the option.
-You can then click and drag the key all the way down so the trail gets skinnier over life time.
+- Width Over Trail - Click the dropdown to the right and select curve. Select the key at the end of the curve and drag the key all the way down so the trail gets skinnier over life time.
 
 ### Renderer
 - Render Mode - Mesh
@@ -226,7 +225,7 @@ You can then click and drag the key all the way down so the trail gets skinnier 
 - Material - PlayerMat
 - Trail Material - Default - Line
 
-After the particle settings are complete, create a new folder called "Effects" and drag the particle effect in there to make it a prefab. Go to our player script and add the following code:
+After the particle settings are complete, create a new folder called "Effects" and drag the particle effect in there to make it a prefab. You can delete the effect that is still in the scene. Go to our player script and add the following code:
 
 ![Explosion1](Images/Explosion1.png)
 
@@ -249,9 +248,9 @@ This will open a menu that allows us to pick which part of the screen we want th
 
 Our text is pretty small. Our player would probably have to squint to read the score properly. To fix this, lets increase the font size. You can increase the font size by increasing the value in the "Font Size" box under the "Text" component. Let's set the font size to be 46. 
 
-Doing this will make our text disappear. This is because the text is now too big to fit into the textbox! To fix this, we'll need to adjust the width and height of our textbox. You can find those values at the top of the inspector in the "Rect Transform" component. Set the width to be 350 and the height to be 60. This should make our text visible again but you may see that it is slightly out of place. To fix this, we can simply reset the anchor holding the "alt" key to set it back to its previous position. While we're in the anchor menu it would also be a good idea to click the stretch option in the bottom right corner. This will make it so that our UI stretches as the screen size changes.
+Doing this will make our text disappear. This is because the text is now too big to fit into the textbox! To fix this, we'll need to adjust the width and height of our textbox. You can find those values at the top of the inspector in the "Rect Transform" component. Set the width to be 350 and the height to be 60. This should make our text visible again but you may see that it is slightly out of place. To fix this, we can simply reset the anchor holding the "alt" key to set it back to its previous position. 
 
-![UI3](Images/UI3.png)
+Click on the canvas game object above the score counter and click the scale mode drop down in the inspector. Set the scale mode to "Scale With Screen Size" and the screen match mode to "Expand". This will make it to where our text will cahnge it's size based on the players screen size.
 
 Now we can create a script that can update the score. Create a new script called "ScoreTextBehaviour" and add the following code:
 
@@ -269,7 +268,7 @@ Change the text in the textbox to "Level Cleared" and set its color to a dark gr
 
 ![UI7](Images/UI7.png)
 
-The lose text should be formatted the same as the win text. All we'll need to do is change the color and the text in the textbox. We can save ourselves some time by just duplicating the win text. To duplicate a game object, select it and press "Ctrl + d". You can name this new game object "LoseText". Change the text to "Level Failed" and the color to a dark red. Just as we did with the win text, we should turn off the the textbox so it doesn't always appear. Lastly, we'll want to make our "Background" object disappear so it isn't always blocking the game view. Instead of turning off the game object though, we'll just change the "Alpha" value in the "Canvas Group" component to 0. 
+The lose text should be formatted the same as the win text. All we'll need to do is change the color and the text in the textbox. We can save ourselves some time by just duplicating the win text. To duplicate a game object, select it and press "Ctrl + d". You can name this new game object "LoseText". Change the text to "Level Failed" and the color to a dark red. Just as we did with the win text, we should turn off the the textbox so it doesn't always appear. Lastly, we'll want to make our "Background" object disappear so it isn't always blocking the game view. Instead of turning off the game object though, we'll add a "Canvas Group" component to our back ground and just change the "Alpha" value to 0. 
 
 Create an empty game object and name it "UIManager". Next we'll create a script that can store and modify our UI elements. Create a new script called "UIManagerBehaviour" and add the following code:
 
@@ -307,7 +306,7 @@ Back in Unity, click on the "GameManager" game object in the hierarchy and set t
 
  # Level Management
 
-Next we'll make our game restart if the player dies. We'll need to add some code to our "GameManagerBehaviour" script. In this next code snippet I have collapsed some blocks of code to make viewing the new changes easier. You can collapse blocks of code by clicking the "-" to the left of the block.
+Next we'll make our game restart if the player dies. We'll need to add some code to our "GameManagerBehaviour" script. In this next code snippet I have collapsed some blocks of code to make viewing the new changes easier. You can collapse blocks of code by clicking the "-" to the left of the block. At the top of the script, add "using UnityEngine.SceneManagement".
 
 ![LevelManagement1](Images/LevelManagement1.png)
 
@@ -315,7 +314,7 @@ Back in Unity, click on the "GameManager" and change the "Death Load Time" value
 
 ![LevelManagement2](Images/LevelManagement2.gif)
 
-If the lighting in the scene looks weird after the game resets, it's just because the lighting needs to be regenerated. To generate the lighting, navigate to "Window -> Rendering -> Lighting" to open the lighting settings. Then click the "Generate Lighting" button in the bottom left. 
+If the lighting in the scene looks weird after the game resets, it's just because the lighting needs to be regenerated. To generate the lighting, navigate to "Window -> Rendering -> Lighting" to open the lighting settings. Then click the "Generate Lighting" button in the bottom right. 
 
 ![LevelManagement3](Images/LevelManagement3.png)
 
@@ -329,7 +328,7 @@ Before we move on to transitioning between levels, lets create our end game scre
 
 ![LevelManagement5](Images/LevelManagement5.png)
 
-Now that our base game is complete, try to create your own levels! Start by duplicating your first scene by selecting the scene asset in the folder view, and pressing "Ctrl + d". Add different challenges and obstacles like gaps to jump over, rotating obstacles, or harder to reach collectibles. 
+Back in Unity, drag the end text object in the "End Text" slot for the UI Manager. Now that our base game is complete, try to create your own levels! Start by duplicating your first scene by selecting the scene asset in the folder view, and pressing "Ctrl + d". Add different challenges and obstacles like gaps to jump over, rotating obstacles, or harder to reach collectibles. 
 
 Once you have completed all of your levels, we'll need to let Unity know that we want all of those levels in the final game. This may be a bit counter intuitive. If we're making a new scene, surely we want it to be in the final game right? It's very common for developers to create test levels that don't belong in the final game. These can be useful for testing out new feature or fixing bugs. Because of this, Unity requires us to tell it which scenes belong in the final game. We can do this by going to "File - Build Settings". 
 
@@ -340,6 +339,8 @@ We can add levels to the build by simply drag and dropping the levels in the cor
 Next we'll need to update our "GameManagerBehaviour" one last time to allow us to transition between levels:
 
 ![LevelManagement7](Images/LevelManagement7.png)
+
+Back in Unity, set the level load time to 4 seconds.
 
 And with that our game is complete!
 
