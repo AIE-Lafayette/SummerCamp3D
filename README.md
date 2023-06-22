@@ -1,5 +1,5 @@
 # Runner
-In this tutorial, we'll be creating a simple game runner using a sphere as a our characters. We'll also see how we can use some simple techniques to add some life to our game.
+In this tutorial, we'll be creating a simple runner game using a sphere as a our characters. We'll also see how we can use some simple techniques to add some life to our game.
 
 # Setting Up The Scene
 To start, create a platform for the player to walk on. To add a game object to the scene, either right-click or click the plus icon in the hierarchy window and select 3D object -> plane. Name this plane "Floor". Next we'll need to scale the floor so that our player has a bit more room to run. With the floor selected, the inspector window should show the object's components on the right. At the top of the component list there is the "Transform" component. Adjust the z axis to change the length of the level. You can set the length of the level to be whatever you like. I'm going to set the length for my level to 8. It's possible that the floor could spawn in a weird position due to the rotation and position of the camera in the scene view. Lets change the values of the position on all axis to be zero so that our level is at the center of our scene.
